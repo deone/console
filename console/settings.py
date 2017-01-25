@@ -25,12 +25,13 @@ SECRET_KEY = 'x89uozo^!to34wt24*x!%)7ge1i83qdeaj32*ei%e@tu@8hmr%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['console-deone.c9users.io']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts.apps.AccountsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
