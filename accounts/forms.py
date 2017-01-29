@@ -1,5 +1,8 @@
 from django import forms
+from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+
+import requests
 
 class CreateAccountForm(forms.Form):
     name = forms.CharField(label=_('Name'), widget=forms.TextInput(attrs={
@@ -22,3 +25,27 @@ class CreateAccountForm(forms.Form):
         'class': 'form-control',
         'placeholder': 'Type password again'
     }))
+
+    def clean_email(self):
+        cleaned_data = super(CreateAccountForm, self).clean()
+        email = cleaned_data.get('email')
+
+        # Make an API call here
+        response = requests.get(settings.ACCOUNT_GET_URL, params={'email': email})
+
+        if response.status_code == 200:
+            raise forms.ValidationError("User already exists")
+
+        return email
+
+    def clean(self):
+        cleaned_data = super(CreateAccountForm, self).clean()
+        password = cleaned_data.get('password')
+        confirm_password = cleaned_data.get('confirm_password')
+
+        if password and confirm_password:
+            if password != confirm_password:
+                raise forms.ValidationError(_("Passwords do not match"), code="password_mismatch")
+
+    def save(self):
+        pass

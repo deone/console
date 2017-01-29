@@ -132,3 +132,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+# Endpoints
+ACCOUNTS_URL = 'https://accounts-deone.c9users.io'
+ACCOUNT_CREATE_URL = ACCOUNTS_URL + '/accounts/create'
+ACCOUNT_GET_URL = ACCOUNTS_URL + '/accounts/get'
