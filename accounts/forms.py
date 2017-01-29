@@ -26,6 +26,15 @@ class CreateAccountForm(forms.Form):
         'placeholder': 'Type password again'
     }))
 
+    def clean_name(self):
+        cleaned_data = super(CreateAccountForm, self).clean()
+        name = cleaned_data.get('name')
+
+        if len(name.split(' ')) == 1:
+            raise forms.ValidationError(_('Enter first and last names'), code='incomplete_name')
+
+        return name
+
     def clean_email(self):
         cleaned_data = super(CreateAccountForm, self).clean()
         email = cleaned_data.get('email')
@@ -34,7 +43,7 @@ class CreateAccountForm(forms.Form):
         response = requests.get(settings.ACCOUNT_GET_URL, params={'email': email})
 
         if response.status_code == 200:
-            raise forms.ValidationError("User already exists")
+            raise forms.ValidationError(_('User already exists'), code='user_exists')
 
         return email
 
@@ -45,7 +54,7 @@ class CreateAccountForm(forms.Form):
 
         if password and confirm_password:
             if password != confirm_password:
-                raise forms.ValidationError(_("Passwords do not match"), code="password_mismatch")
+                raise forms.ValidationError(_('Passwords do not match'), code='password_mismatch')
 
     def save(self):
         pass
