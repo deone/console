@@ -1,8 +1,10 @@
 from django import forms
 from django.conf import settings
+from django.core import serializers
 from django.utils.translation import ugettext_lazy as _
 
 import requests
+from requestor import requestor
 
 class CreateAccountForm(forms.Form):
     name = forms.CharField(label=_('Name'), widget=forms.TextInput(attrs={
@@ -57,4 +59,7 @@ class CreateAccountForm(forms.Form):
                 raise forms.ValidationError(_('Passwords do not match'), code='password_mismatch')
 
     def save(self):
-        pass
+        response = requestor(settings.ACCOUNT_CREATE_URL, data=self.cleaned_data)
+        for obj in serializers.deserialize('json', response.json()['result']):
+            # save object locally
+            obj.save()
