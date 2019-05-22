@@ -25,7 +25,7 @@ SECRET_KEY = 'x89uozo^!to34wt24*x!%)7ge1i83qdeaj32*ei%e@tu@8hmr%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['console-deone.c9users.io']
+ALLOWED_HOSTS = ['555b410143f14e8daaf14e9307802686.vfs.cloud9.us-east-1.amazonaws.com']
 
 
 # Application definition
