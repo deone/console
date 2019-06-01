@@ -80,7 +80,7 @@ DATABASES = {
         'OPTIONS': {
             'sql_mode': 'traditional',
         },
-        'NAME': 'console',
+        'NAME': 'console_dev',
         'USER': 'console_admin',
         'PASSWORD': 'c0ns0l3',
         'HOST': '127.0.0.1',
