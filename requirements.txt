@@ -1,6 +1,6 @@
 appdirs==1.4.0
 coverage==4.3.4
-Django==1.10.5
+Django==2.2.24
 mysqlclient==1.4.2.post1
 packaging==16.8
 pyparsing==2.1.10
